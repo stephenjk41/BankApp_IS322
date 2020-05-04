@@ -15,7 +15,7 @@ class AccountList extends React.Component {
                 return (
                     <li className="list-group-item" key={acc._id}> 
                         <h3>{ acc.name } Account</h3>
-                        
+                        <div>Account ID: {acc._id}</div>
                         <button type='button'
                                 onClick={() => { this.props.removeAccount(acc._id) }}
                                 className="btn btn-danger"
@@ -40,7 +40,7 @@ class AccountList extends React.Component {
             } else {
                 return (
                     <li className="list-group-item" key={acc._id}> 
-                        { acc.name } - { acc.balance }
+                        { acc.name }
                         <button type='button'
                                 onClick={() => { this.props.switchAccount(acc._id) }}
                                 className="btn btn-success"

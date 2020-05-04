@@ -70,7 +70,7 @@ const accountReducer = (state, action) => {
         case 'ADD_ACCOUNT':
             let account = action.payload;
             account._id = state.accounts.length + 1;
-            state.accounts(account);
+            state.accounts.push(account);
 
             return sortAccounts(state);
 

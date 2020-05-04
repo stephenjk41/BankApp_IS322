@@ -60,12 +60,7 @@ const sortAccounts = (state) => {
             newState.not_selected.push(account);
         };
     })
-    console.log(state.transactions)
-    newState.transactions.forEach(transaction => {
-        if(newState.selected[0]._id === transaction.accountId ) {
-            newState.selected[0].transactions.push(transaction);
-        }
-    })
+
     return newState;
 };
 

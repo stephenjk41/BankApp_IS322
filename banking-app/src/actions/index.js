@@ -20,3 +20,13 @@ export const switchAccount = (accountId) => {
         payload: accountId
     }
 }
+
+export const addTransaction = (name, type, amount) => {
+    return {
+        type: 'ADD_TRANSACTION',
+        payload: {
+            name, type, amount
+        }
+    }
+}
+

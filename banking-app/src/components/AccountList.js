@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { removeAccount } from '../actions';
 import { switchAccount } from '../actions';
+
 import AddAccount from './AddAccount'; 
+import AddTransaction from './AddTransaction';
 // import TransactionList from './TransactionList';
 
 class AccountList extends React.Component {
@@ -32,9 +34,12 @@ class AccountList extends React.Component {
 
                         <div className="card" style={{ padding: '10px' }}>
                             <h5>Balance: {acc.balance}</h5>
-                            <ul className="list-group" style={{ marginTop: '15px' }}>
-                             </ul>
+                            <ul className="list-group" style={{ marginTop: '0px' }}>
+                            </ul>
                         </div> 
+                        <AddTransaction tittle={this.props.title} 
+                                stateList={this.props.stateList} 
+                                style={{ float: 'right' }}/>
                     </li>
                 );
             } else {
@@ -57,7 +62,6 @@ class AccountList extends React.Component {
     render() {
 
         let accountList = this.renderList();
-        console.log(accountList)
         console.log(this.props)
         if(this.props.title === "Account Overview") {
             return(
@@ -93,6 +97,7 @@ const mapStateToProps = state => {
         accounts: state.accounts.accounts,
         selected: state.accounts.selected,
         not_selected: state.accounts.not_selected,
+        transactions: state.accounts.transactions
     }
 };
 

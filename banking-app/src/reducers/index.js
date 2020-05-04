@@ -65,6 +65,7 @@ const sortAccounts = (state) => {
 };
 
 
+
 const accountReducer = (state, action) => {
     switch (action.type) {
         case 'ADD_ACCOUNT':
@@ -73,6 +74,12 @@ const accountReducer = (state, action) => {
             state.accounts.push(account);
 
             return sortAccounts(state);
+        case 'ADD_TRANSACTION':
+                let transaction = action.payload;
+                transaction._id = state.transactions.length + 1;
+                transaction.accountId = state.selected[0]._id;
+                state.transactions.push(transaction);
+                return sortAccounts(state);
 
         case 'REMOVE_ACCOUNT':
             const accountIndex_remove = state.accounts.findIndex(acc => {
@@ -91,8 +98,7 @@ const accountReducer = (state, action) => {
             });
             state.accounts[accountIndex_switch].status = "selected";
 
-            return sortAccounts(state)
-
+            return sortAccounts(state);
         default:
             return !state ? sortAccounts(DEFAULT_STATE) : state;
     }

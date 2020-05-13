@@ -95,6 +95,7 @@ const accountReducer = (state, action) => {
                 transaction._id = state.transactions.length + 1;
                 transaction.accountId = state.selected[0]._id;
                 state.transactions.push(transaction);
+                
                 return sortAccounts(state);
 
         case 'REMOVE_ACCOUNT':

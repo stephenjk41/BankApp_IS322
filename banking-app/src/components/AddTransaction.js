@@ -44,7 +44,7 @@ class AddTransaction extends React.Component {
                            type="checkbox" 
                            id="inlineCheckbox2" 
                            value={this.state.type}
-                           onChange={(e) => this.setState({type: "deposit"})}/>
+                           onChange={(e) => this.setState({type: "withdraw"})}/>
                     <label className="form-check-label" htmlFor="inlineCheckbox2">Withdraw</label>
                 </div>
 

@@ -10,13 +10,25 @@ import AddTransaction from './AddTransaction';
 
 class AccountList extends React.Component {
 
+
     renderTransactions() {
         let transactionArr = this.props[this.props.stateList][0].transactions;
         console.log(transactionArr)
         return transactionArr.map(_tran => {
-            return <li className="list-group-item" key={_tran._id}>
-                <div> {_tran.name}: {_tran.amount}  </div>
-            </li>
+            if(_tran.type === "deposit") {
+                return (
+                    <li className="list-group-item" key={_tran._id}>
+                    <div> {_tran.name}: {_tran.amount}  </div>
+                </li>
+                )
+            } else if(_tran.type === "withdraw") {
+                return (
+                    <li className="list-group-item" key={_tran._id}>
+                    <div> {_tran.name}: -{_tran.amount}  </div>
+                </li>
+                )
+
+            }
         })
         
     }
@@ -74,6 +86,7 @@ class AccountList extends React.Component {
 
         let accountList = this.renderList();
         let transactionList = this.renderTransactions();
+
         console.log(this.props)
         if(this.props.title === "Account Overview") {
             return(
@@ -86,6 +99,7 @@ class AccountList extends React.Component {
                     <ul className="list-group" style={{marginTop: "15px"}}>
                         {transactionList}
                     </ul>
+
                 </div> 
             );
         } else if(this.props.title === "Accounts") {

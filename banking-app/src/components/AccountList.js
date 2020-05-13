@@ -93,6 +93,7 @@ const mapStateToProps = state => {
         accounts: state.accounts.accounts,
         selected: state.accounts.selected,
         not_selected: state.accounts.not_selected,
+        transactions: state.accounts.transactions
     }
 };
 

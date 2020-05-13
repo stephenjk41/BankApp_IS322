@@ -5,12 +5,24 @@ import { switchAccount } from '../actions';
 
 import AddAccount from './AddAccount'; 
 import AddTransaction from './AddTransaction';
+// import TransactionList from './TransactionList'
 // import TransactionList from './TransactionList';
 
 class AccountList extends React.Component {
 
+    renderTransactions() {
+        let transactionArr = this.props[this.props.stateList][0].transactions;
+        console.log(transactionArr)
+        return transactionArr.map(_tran => {
+            return <li className="list-group-item" key={_tran._id}>
+                <div> {_tran.name}: {_tran.amount}  </div>
+            </li>
+        })
+        
+    }
     renderList() {
         let accountArr = this.props[this.props.stateList];
+
 
         return accountArr.map(acc => {
             if(acc.status === "selected") {
@@ -62,6 +74,7 @@ class AccountList extends React.Component {
     render() {
 
         let accountList = this.renderList();
+        let transactionList = this.renderTransactions();
         console.log(this.props)
         if(this.props.title === "Account Overview") {
             return(
@@ -70,6 +83,9 @@ class AccountList extends React.Component {
                     
                     <ul className="list-group" style={{ marginTop: '15px' }}>
                        { accountList } 
+                    </ul>
+                    <ul className="list-group" style={{marginTop: "15px"}}>
+                        {transactionList}
                     </ul>
                 </div> 
             );

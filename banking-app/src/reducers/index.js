@@ -61,6 +61,22 @@ const sortAccounts = (state) => {
         };
     })
 
+    newState.transactions.forEach(transaction => {
+        if(transaction.accountId === newState.selected[0]._id) {
+            if(newState.selected[0].transactions.length !== 0) {
+                newState.selected[0].transactions.forEach(_tran => {
+                    if(_tran._id !== transaction._id) {
+                        newState.selected[0].transactions.push(transaction);
+                    }
+                })
+            } else {
+                newState.selected[0].transactions.push(transaction);
+            }
+            
+            
+        }
+    })
+
     return newState;
 };
 

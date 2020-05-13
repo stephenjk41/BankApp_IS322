@@ -10,7 +10,34 @@ import AddTransaction from './AddTransaction';
 
 class AccountList extends React.Component {
 
-
+    // renderDeposits() {
+    //     let depostisArr = this.props[this.props.stateList][0].transactions;
+    //     return depostisArr.map((deposit) => {
+    //         if(deposit.type === "deposit") {
+    //             return (
+    //                 <li className="list-group-item" key={deposit._id.toString()}>
+    //                 <div> {deposit.name}: {deposit.amount}  </div>
+    //             </li>
+    //             )
+    //         } else {
+    //             return;
+    //         }
+    //     });
+    // }
+    // renderWithdraws() {
+    //     let withdrawArr = this.props[this.props.stateList][0].transactions;
+    //     return withdrawArr.map((withdraw) => {
+    //         if(withdraw.type === "withdraw") {
+    //             return (
+    //                 <li className="list-group-item" key={withdraw._id.toString()}>
+    //                 <div> {withdraw.name}: {withdraw.amount}  </div>
+    //             </li>
+    //             )
+    //         } else {
+    //             return;
+    //         }
+    //     });
+    // }
     renderTransactions() {
         let transactionArr = this.props[this.props.stateList][0].transactions;
         console.log(transactionArr)
@@ -29,11 +56,12 @@ class AccountList extends React.Component {
                 )
 
             }
-        })
+        });
         
     }
     renderList() {
         let accountArr = this.props[this.props.stateList];
+
 
         return accountArr.map(acc => {
             if(acc.status === "selected") {
@@ -86,6 +114,8 @@ class AccountList extends React.Component {
 
         let accountList = this.renderList();
         let transactionList = this.renderTransactions();
+        // let depositList = this.renderDeposits();
+        // let withdrawList = this.renderWithdraws();
 
         console.log(this.props)
         if(this.props.title === "Account Overview") {
@@ -96,9 +126,15 @@ class AccountList extends React.Component {
                     <ul className="list-group" style={{ marginTop: '15px' }}>
                        { accountList } 
                     </ul>
-                    <ul className="list-group" style={{marginTop: "15px"}}>
-                        {transactionList}
+                    <ul className="list-group" style={{ marginTop: '15px' }}>
+                       { transactionList } 
                     </ul>
+                    {/* <ul className="list-group" style={{marginTop: "15px"}}>
+                        {depositList}
+                    </ul>
+                    <ul className="list-group" style={{marginTop: "15px"}}>
+                        {withdrawList}
+                    </ul> */}
 
                 </div> 
             );

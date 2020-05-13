@@ -61,21 +61,23 @@ const sortAccounts = (state) => {
         };
     })
 
+    
+
+
     newState.transactions.forEach(transaction => {
         if(transaction.accountId === newState.selected[0]._id) {
-            if(newState.selected[0].transactions.length !== 0) {
-                newState.selected[0].transactions.forEach(_tran => {
-                    if(_tran._id !== transaction._id) {
-                        newState.selected[0].transactions.push(transaction);
-                    }
-                })
-            } else {
-                newState.selected[0].transactions.push(transaction);
-            }
-            
-            
+            newState.selected[0].transactions.push(transaction);
         }
     })
+
+    const seen = new Set();
+    const filteredArr = newState.selected[0].transactions.filter(el => {
+        const duplicate = seen.has(el._id);
+        seen.add(el._id);
+        return !duplicate;
+    })
+
+    newState.selected[0].transactions = filteredArr;
 
     return newState;
 };

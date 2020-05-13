@@ -23,7 +23,6 @@ class AccountList extends React.Component {
     renderList() {
         let accountArr = this.props[this.props.stateList];
 
-
         return accountArr.map(acc => {
             if(acc.status === "selected") {
                 return (

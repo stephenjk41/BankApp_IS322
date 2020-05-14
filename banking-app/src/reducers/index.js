@@ -61,8 +61,27 @@ const sortAccounts = (state) => {
         };
     })
 
+    
+
+
+    newState.transactions.forEach(transaction => {
+        if(transaction.accountId === newState.selected[0]._id) {
+            newState.selected[0].transactions.push(transaction);
+        }
+    })
+
+    const seen = new Set();
+    const filteredArr = newState.selected[0].transactions.filter(el => {
+        const duplicate = seen.has(el._id);
+        seen.add(el._id);
+        return !duplicate;
+    })
+
+    newState.selected[0].transactions = filteredArr;
+
     return newState;
 };
+
 
 
 const accountReducer = (state, action) => {
@@ -73,6 +92,13 @@ const accountReducer = (state, action) => {
             state.accounts.push(account);
 
             return sortAccounts(state);
+        case 'ADD_TRANSACTION':
+                let transaction = action.payload;
+                transaction._id = state.transactions.length + 1;
+                transaction.accountId = state.selected[0]._id;
+                state.transactions.push(transaction);
+                
+                return sortAccounts(state);
 
         case 'REMOVE_ACCOUNT':
             const accountIndex_remove = state.accounts.findIndex(acc => {
@@ -91,8 +117,7 @@ const accountReducer = (state, action) => {
             });
             state.accounts[accountIndex_switch].status = "selected";
 
-            return sortAccounts(state)
-
+            return sortAccounts(state);
         default:
             return !state ? sortAccounts(DEFAULT_STATE) : state;
     }

@@ -2,13 +2,66 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { removeAccount } from '../actions';
 import { switchAccount } from '../actions';
+
 import AddAccount from './AddAccount'; 
+import AddTransaction from './AddTransaction';
+// import TransactionList from './TransactionList'
 // import TransactionList from './TransactionList';
 
 class AccountList extends React.Component {
 
+    // renderDeposits() {
+    //     let depostisArr = this.props[this.props.stateList][0].transactions;
+    //     return depostisArr.map((deposit) => {
+    //         if(deposit.type === "deposit") {
+    //             return (
+    //                 <li className="list-group-item" key={deposit._id.toString()}>
+    //                 <div> {deposit.name}: {deposit.amount}  </div>
+    //             </li>
+    //             )
+    //         } else {
+    //             return;
+    //         }
+    //     });
+    // }
+    // renderWithdraws() {
+    //     let withdrawArr = this.props[this.props.stateList][0].transactions;
+    //     return withdrawArr.map((withdraw) => {
+    //         if(withdraw.type === "withdraw") {
+    //             return (
+    //                 <li className="list-group-item" key={withdraw._id.toString()}>
+    //                 <div> {withdraw.name}: {withdraw.amount}  </div>
+    //             </li>
+    //             )
+    //         } else {
+    //             return;
+    //         }
+    //     });
+    // }
+    renderTransactions() {
+        let transactionArr = this.props[this.props.stateList][0].transactions;
+        console.log(transactionArr)
+        return transactionArr.map(_tran => {
+            if(_tran.type === "deposit") {
+                return (
+                    <li className="list-group-item" key={_tran._id}>
+                    <div> {_tran.name}: {_tran.amount}  </div>
+                </li>
+                )
+            } else if(_tran.type === "withdraw") {
+                return (
+                    <li className="list-group-item" key={_tran._id}>
+                    <div> {_tran.name}: -{_tran.amount}  </div>
+                </li>
+                )
+
+            }
+        });
+        
+    }
     renderList() {
         let accountArr = this.props[this.props.stateList];
+
 
         return accountArr.map(acc => {
             if(acc.status === "selected") {
@@ -32,9 +85,12 @@ class AccountList extends React.Component {
 
                         <div className="card" style={{ padding: '10px' }}>
                             <h5>Balance: {acc.balance}</h5>
-                            <ul className="list-group" style={{ marginTop: '15px' }}>
-                             </ul>
+                            <ul className="list-group" style={{ marginTop: '0px' }}>
+                            </ul>
                         </div> 
+                        <AddTransaction tittle={this.props.title} 
+                                stateList={this.props.stateList} 
+                                style={{ float: 'right' }}/>
                     </li>
                 );
             } else {
@@ -57,7 +113,10 @@ class AccountList extends React.Component {
     render() {
 
         let accountList = this.renderList();
-        console.log(accountList)
+        let transactionList = this.renderTransactions();
+        // let depositList = this.renderDeposits();
+        // let withdrawList = this.renderWithdraws();
+
         console.log(this.props)
         if(this.props.title === "Account Overview") {
             return(
@@ -67,6 +126,16 @@ class AccountList extends React.Component {
                     <ul className="list-group" style={{ marginTop: '15px' }}>
                        { accountList } 
                     </ul>
+                    <ul className="list-group" style={{ marginTop: '15px' }}>
+                       { transactionList } 
+                    </ul>
+                    {/* <ul className="list-group" style={{marginTop: "15px"}}>
+                        {depositList}
+                    </ul>
+                    <ul className="list-group" style={{marginTop: "15px"}}>
+                        {withdrawList}
+                    </ul> */}
+
                 </div> 
             );
         } else if(this.props.title === "Accounts") {
@@ -93,6 +162,7 @@ const mapStateToProps = state => {
         accounts: state.accounts.accounts,
         selected: state.accounts.selected,
         not_selected: state.accounts.not_selected,
+        transactions: state.accounts.transactions
     }
 };
 

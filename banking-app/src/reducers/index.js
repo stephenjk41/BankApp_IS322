@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
 
+
+
 const DEFAULT_STATE =  {
     accounts: [
         { "_id": 1, "name": "Lannisters", "balance": 1189.78, "status": "not_selected", transactions:[] },

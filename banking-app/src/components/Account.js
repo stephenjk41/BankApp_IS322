@@ -11,7 +11,7 @@ class App extends React.Component{
         this.getData();
     }
 
-    getData(){
+    getAccountData(){
         axios.get('http://my-json-server.typicode.com/bnissen24/project2DB/accounts')
         .then(response => {
             return response.data
@@ -20,11 +20,30 @@ class App extends React.Component{
         });
     }
 
+    getTransactionData(){
+        axios.get('http://my-json-server.typicode.com/bnissen24/project2DB/transactions')
+        .then(response => {
+            return response.data
+        }).catch(error => {
+            this.setState({errorMessage: error.message});
+        });
+    };
+
+    accounts = this.getAccountData();
+    transactions = this.getTransactionData();
+
     render(){
         <div className="container">
             <AccountList/>
         </div>
     };
+
+    sendData() {
+        return ({accounts: this.accounts,
+                 transactions: this.transactions,
+                selected: [],
+            not_selected: []});
+    }
 
 }
 const mapStateToProps = state => {

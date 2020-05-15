@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-import AccountList from "./AccountList";
+
 import {addAccount} from '../actions'
 
 class App extends React.Component{
@@ -37,11 +37,7 @@ class App extends React.Component{
     accounts = this.getAccountData();
     transactions = this.getTransactionData();
 
-    render(){
-        <div className="container">
-            <AccountList/>
-        </div>
-    };
+
 
     sendData() {
         return ({accounts: this.accounts,

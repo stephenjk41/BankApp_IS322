@@ -1,4 +1,7 @@
 import { combineReducers } from "redux";
+import App from '../components/Account'
+
+// const DEFAULT_STATE = App.getData();
 
 const DEFAULT_STATE =  {
     accounts: [

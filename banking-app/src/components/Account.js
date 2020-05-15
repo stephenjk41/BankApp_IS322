@@ -12,21 +12,26 @@ class App extends React.Component{
     }
 
     getAccountData(){
+        let accounts = []
         axios.get('http://my-json-server.typicode.com/bnissen24/project2DB/accounts')
         .then(response => {
-            return response.data
+            accounts = response.data
         }).catch(error => {
             this.setState({errorMessage: error.message});
         });
+
+        return accounts;
     }
 
     getTransactionData(){
+        let transactions = []
         axios.get('http://my-json-server.typicode.com/bnissen24/project2DB/transactions')
         .then(response => {
-            return response.data
+            transactions = response.data
         }).catch(error => {
             this.setState({errorMessage: error.message});
         });
+        return transactions;
     };
 
     accounts = this.getAccountData();

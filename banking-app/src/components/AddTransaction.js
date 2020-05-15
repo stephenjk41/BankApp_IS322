@@ -1,9 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import axios from 'axios';
+import axios from 'axios';
 
 
 import { addTransaction } from '../actions';
+// const form = document.querySelector('form');
+
+// const formEvent = form.addEventListener('submit', async event => {
+//  event.preventDefault();
+
+//  const title = document.querySelector('#title').value;
+//  const amount = document.querySelector('#amount').value;
+//  const type = document.querySelector('#checkbox1').value;
+//  const type1 = document.querySelector('#checkbox2').value;
+
+//  const todo = {
+//    title,
+//    amount,
+//    type,
+//    type1
+//  };
+
+//  const addedTodo = await addTodo(todo);
+//  addTodosToDOM(addedTodo);
+// });
 
 class AddTransaction extends React.Component {
     state = {name: '', amount:'', type: ''}
@@ -15,13 +35,13 @@ class AddTransaction extends React.Component {
     
     }
 
-
     render() {
         return(
             <form onSubmit={this.onFormSubmit}>
                 <div className="form-group">
                     <label>Title</label>
                     <input type="text" className="form-control"
+                            id='title'
                            name="name" value={this.state.name}
                            onChange={(e) => this.setState({name: e.target.value})} />
                 </div>
@@ -31,6 +51,7 @@ class AddTransaction extends React.Component {
                 <div className='input-group'>
                     <span className="input-group-addon">$</span>
                     <input type="number" 
+                            id="amount"
                            className="form-control currency" 
                            data-number-to-fixed="2"
                            min='0'

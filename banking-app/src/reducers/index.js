@@ -1,7 +1,13 @@
 import { combineReducers } from "redux";
-import App from '../components/Account'
+import acctReducer from './acctReducer';
+import transReducer from './transReducer';
 
-const DEFAULT_STATE = App.sendData();
+export default combineReducers({
+  acct: acctReducer,
+  trans: transReducer
+});
+
+// // const DEFAULT_STATE = App.sendData();
 
 // const DEFAULT_STATE =  {
 //     accounts: [
@@ -48,84 +54,84 @@ const DEFAULT_STATE = App.sendData();
 
 
 
-const sortAccounts = (state) => {
-    let newState = {
-        accounts: [ ...state.accounts ],
-        transactions: [ ...state.transactions ],
-        selected: [],
-        not_selected: []
-    };
+// const sortAccounts = (state) => {
+//     let newState = {
+//         accounts: [ ...state.accounts ],
+//         transactions: [ ...state.transactions ],
+//         selected: [],
+//         not_selected: []
+//     };
 
-    newState.accounts.forEach(account => {
-        if(account.status === "selected") {
-            newState.selected.push(account);
-        } else if(account.status === "not_selected") {
-            newState.not_selected.push(account);
-        };
-    })
+//     newState.accounts.forEach(account => {
+//         if(account.status === "selected") {
+//             newState.selected.push(account);
+//         } else if(account.status === "not_selected") {
+//             newState.not_selected.push(account);
+//         };
+//     })
 
     
 
 
-    newState.transactions.forEach(transaction => {
-        if(transaction.accountId === newState.selected[0]._id) {
-            newState.selected[0].transactions.push(transaction);
-        }
-    })
+//     newState.transactions.forEach(transaction => {
+//         if(transaction.accountId === newState.selected[0]._id) {
+//             newState.selected[0].transactions.push(transaction);
+//         }
+//     })
 
-    const seen = new Set();
-    const filteredArr = newState.selected[0].transactions.filter(el => {
-        const duplicate = seen.has(el._id);
-        seen.add(el._id);
-        return !duplicate;
-    })
+//     const seen = new Set();
+//     const filteredArr = newState.selected[0].transactions.filter(el => {
+//         const duplicate = seen.has(el._id);
+//         seen.add(el._id);
+//         return !duplicate;
+//     })
 
-    newState.selected[0].transactions = filteredArr;
+//     newState.selected[0].transactions = filteredArr;
 
-    return newState;
-};
+//     return newState;
+// };
 
 
 
-const accountReducer = (state, action) => {
-    switch (action.type) {
-        case 'ADD_ACCOUNT':
-            let account = action.payload;
-            account._id = state.accounts.length + 1;
-            state.accounts.push(account);
+// const accountReducer = (state, action) => {
+//     switch (action.type) {
+//         case 'ADD_ACCOUNT':
+//             let account = action.payload;
+//             account._id = state.accounts.length + 1;
+//             state.accounts.push(account);
+//             return sortAccounts(state);
 
-            return sortAccounts(state);
-        case 'ADD_TRANSACTION':
-                let transaction = action.payload;
-                transaction._id = state.transactions.length + 1;
-                transaction.accountId = state.selected[0]._id;
-                state.transactions.push(transaction);
+//         case 'ADD_TRANSACTION':
+//                 let transaction = action.payload;
+//                 transaction._id = state.transactions.length + 1;
+//                 transaction.accountId = state.selected[0]._id;
+//                 state.transactions.push(transaction);
                 
-                return sortAccounts(state);
+//                 return sortAccounts(state);
 
-        case 'REMOVE_ACCOUNT':
-            const accountIndex_remove = state.accounts.findIndex(acc => {
-                return acc._id === action.payload;
-            });
-            state.accounts.splice(accountIndex_remove, 1);
+//         case 'REMOVE_ACCOUNT':
+//             const accountIndex_remove = state.accounts.findIndex(acc => {
+//                 return acc._id === action.payload;
+//             });
+//             state.accounts.splice(accountIndex_remove, 1);
 
-            return sortAccounts(state);
-        case 'SWITCH_ACCOUNT':
-            const accountIndex_switch = state.accounts.findIndex(acc => {
-                return acc._id === action.payload;
-            })
+//             return sortAccounts(state);
+//         case 'SWITCH_ACCOUNT':
+//             const accountIndex_switch = state.accounts.findIndex(acc => {
+//                 return acc._id === action.payload;
+//             })
 
-            state.accounts.forEach(acc => {
-                acc.status = "not_selected";
-            });
-            state.accounts[accountIndex_switch].status = "selected";
+//             state.accounts.forEach(acc => {
+//                 acc.status = "not_selected";
+//             });
+//             state.accounts[accountIndex_switch].status = "selected";
 
-            return sortAccounts(state);
-        default:
-            return !state ? sortAccounts(DEFAULT_STATE) : state;
-    }
-};
+//             return sortAccounts(state);
+//         default:
+//             return !state ? sortAccounts(DEFAULT_STATE) : state;
+//     }
+// };
 
-export default combineReducers({
-    accounts: accountReducer
-});
+// // export default combineReducers({
+// //     accounts: accountReducer
+// // });

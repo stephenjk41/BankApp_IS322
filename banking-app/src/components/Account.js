@@ -8,7 +8,7 @@ import {addAccount} from '../actions'
 class App extends React.Component{
 
     componentDidMount (){
-        this.getData();
+        axios.getData();
     }
 
     getAccountData(){
@@ -23,26 +23,23 @@ class App extends React.Component{
         return accounts;
     }
 
-    getTransactionData(){
-        let transactions = []
-        axios.get('http://my-json-server.typicode.com/bnissen24/project2DB/transactions')
-        .then(response => {
-            transactions = response.data
-        }).catch(error => {
-            this.setState({errorMessage: error.message});
-        });
-        return transactions;
-    };
+    // getTransactionData(){
+    //     let transactions = []
+    //     axios.get('http://my-json-server.typicode.com/bnissen24/project2DB/transactions')
+    //     .then(response => {
+    //         transactions = response.data
+    //     }).catch(error => {
+    //         this.setState({errorMessage: error.message});
+    //     });
+    //     return transactions;
+    // };
 
-
-
-
-    sendData() {
-        return ({accounts: this.getAccountData(),
-                 transactions: this.getTransactionData(),
-                selected: [],
-            not_selected: []});
-    }
+    // sendData() {
+    //     return ({accounts: this.getAccountData(),
+    //              transactions: this.getTransactionData(),
+    //             selected: [],
+    //         not_selected: []});
+    // }
 
 }
 const mapStateToProps = state => {

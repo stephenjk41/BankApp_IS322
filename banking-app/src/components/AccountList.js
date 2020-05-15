@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { removeAccount } from '../actions';
 import { switchAccount } from '../actions';
+import { editBalance } from "../actions";
 
 import AddAccount from './AddAccount'; 
 import AddTransaction from './AddTransaction';
@@ -52,6 +53,7 @@ class AccountList extends React.Component {
                 return (
                     <li className="list-group-item" key={_tran._id}>
                     <div> {_tran.name}: -{_tran.amount}  </div>
+                
                 </li>
                 )
 
@@ -77,7 +79,7 @@ class AccountList extends React.Component {
                         </button>
 
                         <button type='button'
-                                onClick={() => {  }}
+                                onClick={() => { this.props.editBalance(acc._id) }}
                                 className="btn btn-warning"
                                 style={{ float: 'right', margin: "5px" }}>
                                     Edit
@@ -166,4 +168,4 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, { removeAccount, switchAccount })(AccountList);
+export default connect(mapStateToProps, { editBalance,removeAccount, switchAccount })(AccountList);

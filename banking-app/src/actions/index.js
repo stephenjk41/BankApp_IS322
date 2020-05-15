@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 export const addAccount = (name, balance, status) => {
     return{
         type: 'ADD_ACCOUNT',
@@ -17,6 +18,13 @@ export const removeAccount = (accountId) => {
 export const switchAccount = (accountId) => {
     return {
         type: 'SWITCH_ACCOUNT',
+        payload: accountId
+    }
+}
+
+export const editBalance = (accountId) => {
+    return {
+        type: 'EDIT_BALANCE',
         payload: accountId
     }
 }

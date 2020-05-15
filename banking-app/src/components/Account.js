@@ -14,7 +14,7 @@ class App extends React.Component{
     getData(){
         axios.get('http://my-json-server.typicode.com/bnissen24/project2DB/accounts')
         .then(response => {
-            this.props.addAccount(response.data);
+            return response.data
         }).catch(error => {
             this.setState({errorMessage: error.message});
         });

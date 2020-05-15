@@ -34,14 +34,12 @@ class App extends React.Component{
         return transactions;
     };
 
-    accounts = this.getAccountData();
-    transactions = this.getTransactionData();
 
 
 
     sendData() {
-        return ({accounts: this.accounts,
-                 transactions: this.transactions,
+        return ({accounts: this.getAccountData(),
+                 transactions: this.getTransactionData(),
                 selected: [],
             not_selected: []});
     }
